@@ -24,27 +24,19 @@ public class Piscina {
         return this.nivel;
     }
 
-    public void vaciar(int cantidad) {
-        try {            
-            if (this.nivel - cantidad < 0) {
-                throw new Excepcion("No queda agua suficiente\nSe queda con " + this.nivel);
-            } else {
-                this.nivel = this.nivel - cantidad;
-            }
-        } catch (Excepcion e) {
-            System.out.println(e.getMessage());
+    public void vaciar(int cantidad) throws Excepcion{
+        if (this.nivel - cantidad < 0) {
+            throw new Excepcion("No queda agua suficiente\nSe queda con " + this.nivel);
+        } else {
+            this.nivel = this.nivel - cantidad;
         }
     }
 
-    public void llenar(int cantidad) {
-        try {
-            if (this.nivel + cantidad > MAX_NIVEL) {
-                throw new Excepcion("Se desborda con tanta agua\nSe queda con " + this.nivel);
-            } else {
-                this.nivel = this.nivel + cantidad;
-            }
-        } catch (Excepcion e) {
-            System.out.println(e.getMessage());
+    public void llenar(int cantidad) throws Excepcion{
+        if (this.nivel + cantidad > MAX_NIVEL) {
+            throw new Excepcion("Se desborda con tanta agua\nSe queda con " + this.nivel);
+        } else {
+            this.nivel = this.nivel + cantidad;
         }
     }
 }

@@ -4,6 +4,9 @@
  */
 package dam.excepcionPiscina.vista;
 
+import dam.excepcionPiscina.clases.Excepcion;
+import dam.excepcionPiscina.clases.Piscina;
+
 /**
  *
  * @author manu1
@@ -11,6 +14,7 @@ package dam.excepcionPiscina.vista;
 public class PanelPrincipal extends javax.swing.JPanel {
 
     private VentanaPiscina miVentana;
+    private Piscina piscina;
 
     /**
      * Creates new form PanelPrincipal
@@ -42,6 +46,8 @@ public class PanelPrincipal extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
 
+        setPreferredSize(new java.awt.Dimension(750, 750));
+
         btnProbar.setText("Probar Piscina");
         btnProbar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -54,9 +60,23 @@ public class PanelPrincipal extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 51, 51));
         jLabel1.setText("Capacidad de la piscina en metros cúbicos:");
 
+        barraLimite.setEnabled(false);
+
         btnLlenar.setText("Llenar");
+        btnLlenar.setEnabled(false);
+        btnLlenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLlenarActionPerformed(evt);
+            }
+        });
 
         btnVaciar.setText("Vaciar");
+        btnVaciar.setEnabled(false);
+        btnVaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVaciarActionPerformed(evt);
+            }
+        });
 
         lista.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "1.0", "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "2.0" };
@@ -73,32 +93,29 @@ public class PanelPrincipal extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLlenar)
-                                .addGap(390, 390, 390)
-                                .addComponent(btnVaciar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel1)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(btnProbar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(71, 71, 71)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(108, 108, 108))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(barraLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(142, 142, 142)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(btnProbar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(71, 71, 71)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(159, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(barraLimite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnLlenar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVaciar)))
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,31 +127,68 @@ public class PanelPrincipal extends javax.swing.JPanel {
                         .addGap(42, 42, 42)
                         .addComponent(btnProbar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(96, 96, 96)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnLlenar)
-                    .addComponent(btnVaciar))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(btnVaciar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLlenar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(barraLimite, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProbarActionPerformed
         if (lista.getSelectedIndex()!= -1) {
+            btnProbar.setEnabled(false);
+            lista.setEnabled(false);
+            btnLlenar.setEnabled(true);
+            btnVaciar.setEnabled(true);
             
+            Integer litrosPiscina = (int)(1000 * Double.parseDouble(lista.getSelectedValue()));
+            piscina = new Piscina(litrosPiscina);
+            
+            barraLimite.setMinimum(0); //Valor Mínimo
+            barraLimite.setMaximum(litrosPiscina); //Valor Máximo
+            barraLimite.setMajorTickSpacing(100); //Definir marcas mayores cada 100 unidades
+            barraLimite.setMinorTickSpacing(10); //Definir marcas menores cada 10 unidades
+            barraLimite.setValue(0); //Asignación del valor inicial
+            barraLimite.setPaintTicks(true); //Mostrar marcas mayores y menores
+            barraLimite.setPaintLabels(true); //Mostrar numeración de marcas mayores
+            barraLimite.setEnabled(false); //desactivar jSlider
+            
+            txtArea.append("Se va a realizar la prueba de la piscina con " + litrosPiscina + "L:");
         }
-        barraLimite.setMinimum(0); //Valor Mínimo
-        //barraLimite.setMaximum(litrosPiscina); //Valor Máximo
-        barraLimite.setMajorTickSpacing(100); //Definir marcas mayores cada 100 unidades
-        barraLimite.setMinorTickSpacing(10); //Definir marcas menores cada 10 unidades
-        barraLimite.setValue(0); //Asignación del valor inicial
-        barraLimite.setPaintTicks(true); //Mostrar marcas mayores y menores
-        barraLimite.setPaintLabels(true); //Mostrar numeración de marcas mayores
-        barraLimite.setEnabled(false); //desactivar jSlider
+        
     }//GEN-LAST:event_btnProbarActionPerformed
+
+    private void btnVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciarActionPerformed
+        try {
+            int num = (int)(Math.random() * 1000 + 1);
+            piscina.vaciar(num);
+        
+            txtArea.append("\n\n-------\n\nSe ha vaciado " + num + "L\nEn total hay " + piscina.getNivel() + "L");
+        } catch (Excepcion e) {
+            txtArea.append("\n\n-------\n\n" + e.getMessage());
+        }
+    }//GEN-LAST:event_btnVaciarActionPerformed
+
+    private void btnLlenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLlenarActionPerformed
+        /*
+        try {
+            int num = (int)(Math.random() * 1000 + 1);
+            piscina.llenar(num);
+        
+            txtArea.append("\n\n-------\n\nSe ha llenado " + num + "L\nEn total hay " + piscina.getNivel() + "L");
+        } catch (Excepcion e) {
+            txtArea.append("\n\n-------\n\n" + e.getMessage());
+        }
+        */
+    }//GEN-LAST:event_btnLlenarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
