@@ -20,7 +20,7 @@ public class VentanaPiscina extends javax.swing.JFrame {
         
         PanelPrincipal panel = new PanelPrincipal(this);
         
-        this.setSize(750, 750);
+        this.setSize(750, 700);
         
         panelActivo = panel;
         this.getContentPane().add(panelActivo);
